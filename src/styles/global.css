@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Kolon Brand */
+  --kolon-blue:    #0078C3;
+  --kolon-blue-lt: #E8F4FC;
+  --kolon-blue-md: #C2DEF4;
+
+  /* Light surface */
+  --bg-base:      #EFF3F6;
+  --bg-surface:   #FFFFFF;
+  --bg-card:      #FFFFFF;
+  --bg-elevated:  #F5F9FC;
+  --bg-hover:     #EBF4FB;
+
+  /* Border */
+  --border:       #D0DEE8;
+  --border-sub:   #E4EDF4;
+  --border-blue:  #B0D4EF;
+
+  /* Text — dark on light */
+  --text-primary:   #0A1929;
+  --text-secondary: #2C4A63;
+  --text-muted:     #5C7A90;
+  --text-faint:     #90ABBE;
+
+  /* Accents */
+  --accent-sr:   #0078C3;
+  --accent-co:   #7C3AED;
+
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  18px;
+  --radius-xl:  24px;
+
+  --shadow-sm:   0 1px 4px rgba(0,80,160,.07), 0 2px 8px rgba(0,80,160,.05);
+  --shadow-card: 0 2px 12px rgba(0,80,160,.08), 0 1px 3px rgba(0,80,160,.06);
+  --shadow-hover:0 8px 32px rgba(0,80,160,.14), 0 2px 8px rgba(0,80,160,.08);
+  --shadow-modal:0 20px 60px rgba(0,20,60,.18), 0 4px 16px rgba(0,20,60,.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+
+body {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+code, .mono { font-family: 'IBM Plex Mono', monospace; }
+button { font-family: inherit; cursor: pointer; }
+textarea, select, input { font-family: inherit; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #EFF3F6; }
+::-webkit-scrollbar-thumb { background: #B8CEDF; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #90ABBE; }
+
+.fade-in { animation: fadeIn 0.25s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 배경 */
+.kolon-bg {
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url('/kolon_bg.svg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
