@@ -13,8 +13,15 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { URL } from "url";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// 사내 프록시 경유 (HTTPS_PROXY 설정 시에만). Node 의 https 모듈은
+// 프록시 환경변수를 자동으로 따르지 않으므로 명시적으로 agent 를 주입한다.
+const PROXY_URL = process.env.HTTPS_PROXY || process.env.https_proxy || null;
+const proxyAgent = PROXY_URL ? new HttpsProxyAgent(PROXY_URL) : undefined;
+if (PROXY_URL) console.log(`🌐 프록시 경유: ${PROXY_URL}`);
 
 // 회사 SSL 인터셉션 우회 (필요 시 .env 에서 NODE_TLS_REJECT_UNAUTHORIZED=0)
 if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === undefined) {
@@ -72,6 +79,7 @@ function getAccessToken() {
         "Content-Length": Buffer.byteLength(body),
       },
       rejectUnauthorized: false,
+      agent: proxyAgent,
     }, (res) => {
       let data = "";
       res.on("data", (c) => (data += c));
@@ -104,6 +112,7 @@ function proxyGraphQL(token, body) {
         Authorization:    `Bearer ${token}`,
       },
       rejectUnauthorized: false,
+      agent: proxyAgent,
     }, (res) => {
       let data = "";
       res.on("data", (c) => (data += c));
